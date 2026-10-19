@@ -1,7 +1,7 @@
 %include "../../lib/pc_io.inc"   ; incluir declaraciones de procedimiento externos
 
 section .data
-    bskey equ 0x7F
+    backspace equ 0x7F
     lencadena equ 255
     ln equ 0x0A
     nline db ln,0
@@ -80,10 +80,10 @@ _start:
         cmp al, ln ;compara caracter para salto de linea
         je .fin_captura
 
-        cmp al, bskey ; backspace
+        cmp al, backspace ; backspace
         je .retroceder
 
-        cmp ecx, ebx
+        cmp ecx, ebx ; se evalua si usa espavcio de msg
         jae .leer
 
         mov [edi], al ;guardar en memoria
@@ -174,7 +174,7 @@ _start:
         cmp al, 'A'         ;comprobar si esta antes de la letra A.
         jb .siguiente_minusculas ;si es mayor es mayuscula
 
-        cmp al, 'Z'         ; Comprueba si esta despues de la letra Z.
+        cmp al, 'Z'         ; comprobar si esta despues de la letra Z.
         ja .siguiente_minusculas ; si es mayor no es mayuscula.
 
         add byte [edi], 32  ; suma 32 
